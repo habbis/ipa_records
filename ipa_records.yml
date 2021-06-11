@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  #remote_user: root
+  #remote_user: vagrant
+  #remote_user: root
+  #become: yes
+  #become_method: sudo
+  vars: 
+    ipa_host: 
+    ip_user: 
+    ipa_pass: 
+    zone_name:
+
+    record01:
+    value01:
+
+  tasks:
+  #- name: upgrade all packages
+  #  package:
+  #    name: "*"
+  #    state: latest
+
+
+  - name: add A record "{{ record01 }}"
+    community.general.ipa_dnsrecord:
+      ipa_host: "{{ ipa_host }}"
+      #ipa_user: "{{ ipa_user }}"
+      ipa_pass: "{{ ipa_pass }}"
+      validate_certs: no
+      state: present
+      zone_name: "{{ zone_name }}"
+      record_name: "{{ record01 }}"
+      record_type: 'A'
+      record_value: '"{{ value01 }}"'
+
+
